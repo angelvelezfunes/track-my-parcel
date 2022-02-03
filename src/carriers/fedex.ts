@@ -86,6 +86,8 @@ export class Fedex extends PackageTracker {
     // For the moment we only handle the first package of the list.
     // TODO Find better handling implementation
     const firstPackage = response.TrackPackagesResponse.packageList[0];
+    const cityPackage = firstPackage.originTermCity;
+    const statePackage = firstPackage.originTermStateCD;
     const label = firstPackage.keyStatus;
     let percentage = 0;
     /* Fedex has 4 statuses */
@@ -111,6 +113,8 @@ export class Fedex extends PackageTracker {
       detailsLink: this.getDetailsLink(),
       statusLabel: label,
       statusPercentage: percentage,
+      city: cityPackage,
+      state: statePackage
     } as ITrackingInfo;
   }
 
